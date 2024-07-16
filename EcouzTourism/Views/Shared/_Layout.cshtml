@@ -14,6 +14,16 @@
             text-shadow: 0 0 0.5px #fff, 0 0 0.5px #fff, 0 0 0.5px #fff, 0 0 8px #fff;
         }
 
+        .neon-text-success {
+            color: #003300;
+            text-shadow: 0 0 0.5px #66ff33, 0 0 0.5px #66ff33, 0 0 0.5px #66ff33, 0 0 15px #66ff33;
+        }
+
+        .neon-text-danger {
+            color: #cc415f;
+            text-shadow: 0 0 0.5px #cc415f, 0 0 0.5px #cc415f, 0 0 0.5px #cc415f, 0 0 8px #cc415f;
+        }
+
         .neon-button {
             color: #fff;
             border: 1px solid #fff;
@@ -76,6 +86,18 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @if (TempData["error"] != null)
+            {
+                <div class="text-danger h3 neon-text-danger">
+                    @TempData["error"]
+                </div>
+            }
+            @if (TempData["success"] != null)
+            {
+                <div class="text-success h3 neon-text-success">
+                    @TempData["success"]
+                </div>
+            }
             @RenderBody()
         </main>
     </div>

@@ -32,9 +32,10 @@ namespace EcouzTourism.Controllers
             if (ModelState.IsValid)
             {
 
-            _db.Villas.Add(obj);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+                _db.Villas.Add(obj);
+                _db.SaveChanges();
+                TempData["success"] = $"{ obj.Name } Has been created successfully";
+                return RedirectToAction("Index");
             }
             return View(); 
         }
@@ -56,6 +57,7 @@ namespace EcouzTourism.Controllers
 
                 _db.Villas.Update(obj);
                 _db.SaveChanges();
+                TempData["success"] = $"{obj.Name } Has been updated successfully";
                 return RedirectToAction("Index");
             }
             return View();
@@ -82,8 +84,11 @@ namespace EcouzTourism.Controllers
 
                 _db.Villas.Remove(objFromDb);
                 _db.SaveChanges();
+                TempData["success"] = $"{ objFromDb.Name } Has been deleted successfully";
                 return RedirectToAction("Index");
             }
+            TempData["error"] = "${ objFromDb } was not found.";
+
             return View();
         }
     }
