@@ -1,0 +1,48 @@
+﻿@model VillaNumber
+
+<div class="w-100 card border-0 p-2 ">
+    <h1>
+        Create Villa Number
+    </h1>
+    <div class="card-body  p-2">
+        <form method="post" class="row" enctype="multipart/form-data">
+            <div class="p-3">
+                @* <div asp-validation-summary="All"></div>  *@
+                <div class="form-floating py-1 col-12">
+                    <input asp-for="VillaId" class="form-control border shadow" />
+                    <label asp-for="VillaId" class="ms-2 neon-text"></label>
+                    <span asp-validation-for="VillaId" class="text-danger neon-text-danger"></span>
+                </div>
+                <div class="form-floating py-1 col-12">
+                    <input asp-for="Villa_Number" class="form-control border shadow" />
+                    <label asp-for="Villa_Number" class="ms-2 neon-text"></label>
+                    <span asp-validation-for="Villa_Number" class="text-danger neon-text-danger"></span>
+                </div>
+                <div class="form-floating py-1 col-12">
+                    <input asp-for="SpecialDetails" class="form-control border shadow" />
+                    <label asp-for="SpecialDetails" class="ms-2 neon-text"></label>
+                    <span asp-validation-for="SpecialDetails" class="text-danger neon-text-danger"></span>
+                </div>
+               
+                <div class="row pt-2">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-outline-success w-100 neon-button-success">
+                            <i class="bi bi-check-circle"></i> Create
+                        </button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="VillaNumber" asp-action="Index" class="btn btn-outline-secondary w-100  neon-button">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
