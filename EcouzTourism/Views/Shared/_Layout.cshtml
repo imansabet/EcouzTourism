@@ -1,18 +1,59 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - EcouzTourism</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css" integrity="sha512-Z/def5z5u2aR89OuzYcxmDJ0Bnd5V1cKqBEbvLOiUNWdg9PQeXVvXLI90SE4QOHGlfLqUnDNVAYyZi8UwUTmWQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EcouzTourism.styles.css" asp-append-version="true" />
+    <style>
+        .neon-text {
+            color: #fff; 
+            text-shadow: 0 0 0.5px #fff, 0 0 0.5px #fff, 0 0 0.5px #fff, 0 0 8px #fff;
+        }
+
+        .neon-button {
+            color: #fff;
+            border: 1px solid #fff;
+            box-shadow: 0 0 2px #fff, 0 0 4px #fff ,0 0 6px #fff, 0 0 8px #fff;
+        }
+
+        .neon-button-success {
+            color: #0e9c21;
+            border: 0.2px solid #0e9c21;
+            box-shadow: 0 0 2px #0e9c21, 0 0 4px #0e9c21, 0 0 6px #0e9c21, 0 0 8px #0e9c21;
+        }
+
+        .neon-button-info {
+            color: #009AFF;
+            border: 1px solid #009AFF;
+            box-shadow: 0 0 2px #009AFF, 0 0 4px #009AFF, 0 0 6px #009AFF, 0 0 8px #009AFF;
+        }
+
+        .neon-button-danger {
+            color: #cc415f;
+            border: 1px solid #cc415f;
+            box-shadow: 0 0 2px #cc415f, 0 0 4px #cc415f, 0 0 6px #cc415f, 0 0 8px #cc415f;
+        }
+
+        .neon-card {
+            background-color: ;
+            box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #fff;
+            border-color: #fff;
+        }
+
+    </style>
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 neon-text">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EcouzTourism</a>
+                <a style="width:50px;height:50px; filter: invert(1) brightness(2);" class="navbar-brand " asp-area="" asp-controller="Home" asp-action="Index">
+                    <img  src="/images/uzlogo.svg" alt="Logo" />
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,10 +61,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link"  asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link"  asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Villa" asp-action="Index">Villa</a>
                         </li>
                     </ul>
                 </div>
@@ -37,9 +81,13 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - EcouzTourism - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container text-center">
+            <h5 class="neon-text">
+                &copy; 2024 - Made with <i style=" color:#EF2360 ;
+            text-shadow: 0 0 0.5px red, 0 0 0.5px red, 0 0 0.5px red, 0 0 8px red;" class="bi bi-heart-fill "></i> By            <img style="width:50px;height:50px; filter: invert(1) brightness(2);" src="/images/uzlogo.svg" alt="Logo" />
+            </h5>
         </div>
+
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
