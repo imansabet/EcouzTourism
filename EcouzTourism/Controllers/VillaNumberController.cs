@@ -1,6 +1,8 @@
 ﻿using EcouzTourism.Domain.Entities;
 using EcouzTourism.Infrastructure.Data;
+using EcouzTourism.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EcouzTourism.Controllers
 {
@@ -19,7 +21,15 @@ namespace EcouzTourism.Controllers
         }
         public IActionResult Create()
         {
-            return View();
+            VillaNumberVM villaNumberVM = new()
+            {
+                VillaList = _db.Villas.Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                })
+            };
+            return View(villaNumberVM);
         }
 
         [HttpPost]
