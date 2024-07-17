@@ -79,7 +79,7 @@ namespace EcouzTourism.Controllers
 
 
         [HttpPost]
-        public IActionResult Upadte(VillaNumberVM villaNumberVM)
+        public IActionResult Update(VillaNumberVM villaNumberVM)
         {
 
             if (ModelState.IsValid)
