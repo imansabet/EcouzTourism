@@ -34,18 +34,29 @@ namespace EcouzTourism.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(VillaNumber obj)
+        public IActionResult Create(VillaNumberVM obj)
         {
+            bool roomNumberExists = _db.VillaNumbers.Any(u => u.Villa_Number == obj.VillaNumber.Villa_Number);
+
             
-            if (ModelState.IsValid)
+            if (ModelState.IsValid &&!roomNumberExists)
             {
 
-                _db.VillaNumbers.Add(obj);
+                _db.VillaNumbers.Add(obj.VillaNumber);
                 _db.SaveChanges();
-                TempData["success"] = $"Villa:{ obj.Villa_Number } Has been created successfully";
+                TempData["success"] = $"Villa number Has been created successfully";
                 return RedirectToAction("Index");
             }
-            return View(); 
+            if (roomNumberExists)
+            {
+                TempData["error"] = "The Villa number Already Exists . ";
+            }
+            obj.VillaList = _db.Villas.ToList().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+            return View(obj); 
         }
 
         public IActionResult Update(int villaId)
