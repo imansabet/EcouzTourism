@@ -3,6 +3,7 @@ using EcouzTourism.Infrastructure.Data;
 using EcouzTourism.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace EcouzTourism.Controllers
 {
@@ -16,7 +17,7 @@ namespace EcouzTourism.Controllers
         }
         public IActionResult Index()
         {
-            var villaNumbers = _db.VillaNumbers.ToList();
+            var villaNumbers = _db.VillaNumbers.Include(u=>u.Villa).ToList();
             return View(villaNumbers);
         }
         public IActionResult Create()
