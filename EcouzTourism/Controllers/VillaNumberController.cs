@@ -32,6 +32,7 @@ namespace EcouzTourism.Controllers
             };
             return View(villaNumberVM);
         }
+       
 
         [HttpPost]
         public IActionResult Create(VillaNumberVM obj)
@@ -58,57 +59,23 @@ namespace EcouzTourism.Controllers
             });
             return View(obj); 
         }
-
-        public IActionResult Update(int villaId)
+        public IActionResult Update(int VillaNumberId)
         {
-            Villa? obj = _db.Villas.FirstOrDefault(u=>u.Id == villaId);
-            if (obj is null)
+            VillaNumberVM villaNumberVM = new()
+            {
+                VillaList = _db.Villas.Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
+                VillaNumber = _db.VillaNumbers.FirstOrDefault(u => u.Villa_Number == VillaNumberId)
+            };
+            if (villaNumberVM.VillaNumber == null)
             {
                 return RedirectToAction("Error", "Home");
             }
-            return View(obj);
+            return View(villaNumberVM);
         }
-        [HttpPost]
-        public IActionResult Update(Villa obj)
-        {
-            if (ModelState.IsValid && obj.Id > 0)
-            {
-
-                _db.Villas.Update(obj);
-                _db.SaveChanges();
-                TempData["success"] = $"{obj.Name } Has been updated successfully";
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-
-
-        public IActionResult Delete (int villaId)
-        {
-            Villa? obj = _db.Villas.FirstOrDefault(u => u.Id == villaId);
-            if (obj is null)
-            {
-                return RedirectToAction("Error", "Home");
-            }
-            return View(obj);
-        }
-
-        [HttpPost]
-        public IActionResult Delete(Villa obj)
-        {
-            Villa? objFromDb = _db.Villas.FirstOrDefault(u => u.Id == obj.Id);
-    
-            if (objFromDb is not null)
-            {
-
-                _db.Villas.Remove(objFromDb);
-                _db.SaveChanges();
-                TempData["success"] = $"{ objFromDb.Name } Has been deleted successfully";
-                return RedirectToAction("Index");
-            }
-            TempData["error"] = "${ objFromDb } was not found.";
-
-            return View();
-        }
+       
     }
 }
