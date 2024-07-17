@@ -76,6 +76,28 @@ namespace EcouzTourism.Controllers
             }
             return View(villaNumberVM);
         }
-       
+
+
+        [HttpPost]
+        public IActionResult Upadte(VillaNumberVM villaNumberVM)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                _db.VillaNumbers.Update(villaNumberVM.VillaNumber);
+                _db.SaveChanges();
+                TempData["success"] = $"Villa number Has been updated successfully";
+                return RedirectToAction("Index");
+            }
+            
+            villaNumberVM.VillaList = _db.Villas.ToList().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+            
+            return View(villaNumberVM);
+        }
     }
 }
