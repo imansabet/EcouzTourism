@@ -1,0 +1,52 @@
+﻿@model VillaNumberVM
+
+<div class="w-100 card border-0 p-2 ">
+    <h4 class="neon-text-danger">
+        Are you Sure to Delete This  Villa Number ? 
+    </h4>
+    <div class="card-body  p-2">
+        <form method="post" class="row" enctype="multipart/form-data">
+            <input asp-for="VillaNumber.Villa_Number" hidden />
+            <div class="p-3">
+                @* <div asp-validation-summary="All"></div>  *@
+                <div class="form-floating py-1 col-12">
+                    <select disabled asp-for="@Model.VillaNumber.VillaId" asp-items="@Model.VillaList"
+                            class="form-select border shadow">
+                        <option disabled selected> Select Villa </option>
+                    </select>
+                    <label asp-for="VillaNumber.VillaId" class="ms-2 neon-text"></label>
+                    <span asp-validation-for="VillaNumber.VillaId" class="text-danger neon-text-danger"></span>
+                </div>
+                <div class="form-floating py-1 col-12">
+                    <input asp-for="VillaNumber.Villa_Number" disabled class="form-control border shadow" />
+                    <label asp-for="VillaNumber.Villa_Number" class="ms-2 neon-text"></label>
+                    <span asp-validation-for="VillaNumber.Villa_Number" class="text-danger neon-text-danger"></span>
+                </div>
+                <div class="form-floating py-1 col-12">
+                    <input asp-for="VillaNumber.SpecialDetails" disabled class="form-control border shadow" />
+                    <label asp-for="VillaNumber.SpecialDetails" class="ms-2 neon-text"></label>
+                    <span asp-validation-for="VillaNumber.SpecialDetails" class="text-danger neon-text-danger"></span>
+                </div>
+
+                <div class="row pt-2">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-outline-danger w-100 neon-button-danger">
+                            <i class="bi bi-check-circle"></i> Delete
+                        </button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="VillaNumber" asp-action="Index" class="btn btn-outline-secondary w-100  neon-button">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
