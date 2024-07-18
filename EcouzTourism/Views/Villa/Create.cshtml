@@ -34,9 +34,10 @@
                     <span asp-validation-for="Occupancy" class="text-danger neon-text-danger"></span>
                 </div>
                 <div class="form-floating py-1 col-12">
-                    <input asp-for="ImageUrl" class="form-control border shadow" />
-                    <label asp-for="ImageUrl" class="ms-2 neon-text "></label>
-                    <span asp-validation-for="ImageUrl" class="text-danger neon-text-danger"></span>
+                    <input asp-for="ImageUrl" hidden class="form-control border shadow" />
+                    <input asp-for="Image" class="form-control border shadow" />
+                    <label asp-for="ImageUrl" class="ms-2 "></label>
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
                 </div>
                 <div class="row pt-2">
                     <div class="col-6 col-md-3">

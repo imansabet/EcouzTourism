@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace EcouzTourism.Domain.Entities
 {
@@ -20,6 +21,8 @@ namespace EcouzTourism.Domain.Entities
         public int Sqft { get; set; }
         [Range(1, 10)]
         public int Occupancy { get; set; }
+        [NotMapped]
+        public IFormFile? Image { get; set; }
         [NotMapped]
         [Display(Name = "Image Url")]
         public string? ImageUrl { get; set; }
