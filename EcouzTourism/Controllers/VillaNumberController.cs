@@ -46,7 +46,7 @@ namespace EcouzTourism.Controllers
                 _db.VillaNumbers.Add(obj.VillaNumber);
                 _db.SaveChanges();
                 TempData["success"] = $"Villa number Has been created successfully";
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             if (roomNumberExists)
             {
@@ -88,7 +88,7 @@ namespace EcouzTourism.Controllers
                 _db.VillaNumbers.Update(villaNumberVM.VillaNumber);
                 _db.SaveChanges();
                 TempData["success"] = $"Villa number Has been updated successfully";
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             
             villaNumberVM.VillaList = _db.Villas.ToList().Select(u => new SelectListItem
@@ -128,7 +128,7 @@ namespace EcouzTourism.Controllers
                 _db.VillaNumbers.Remove(objFromDb);
                 _db.SaveChanges();
                 TempData["success"] = "the villa number has been deleted successfully";
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
 
             }
             TempData["error"] = "The villa number could not be deleted";

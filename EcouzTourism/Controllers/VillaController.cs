@@ -36,7 +36,7 @@ namespace EcouzTourism.Controllers
                 _villaRepo.Add(obj);
                 _villaRepo.Save();
                 TempData["success"] = $"{ obj.Name } Has been created successfully";
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             return View(); 
         }
@@ -59,7 +59,7 @@ namespace EcouzTourism.Controllers
                 _villaRepo.Update(obj);
                 _villaRepo.Save();
                 TempData["success"] = $"{obj.Name } Has been updated successfully";
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             return View();
         }
@@ -86,7 +86,7 @@ namespace EcouzTourism.Controllers
                 _villaRepo.Remove(objFromDb);
                 _villaRepo.Save();
                 TempData["success"] = $"{ objFromDb.Name } Has been deleted successfully";
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             TempData["error"] = "${ objFromDb } was not found.";
 
