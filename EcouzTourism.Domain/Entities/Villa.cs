@@ -23,7 +23,6 @@ namespace EcouzTourism.Domain.Entities
         public int Occupancy { get; set; }
         [NotMapped]
         public IFormFile? Image { get; set; }
-        [NotMapped]
         [Display(Name = "Image Url")]
         public string? ImageUrl { get; set; }
         public DateTime? Created_Date { get; set; }
