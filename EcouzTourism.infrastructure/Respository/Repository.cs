@@ -35,7 +35,7 @@ namespace EcouzTourism.Infrastructure.Respository
             }
             if (!string.IsNullOrEmpty(includeProperties))
             {
-                //Case Sensitive Villa,VillaNumber
+                //Villa,VillaNumber -- case sensitive
                 foreach (var includeProp in includeProperties
                     .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
@@ -54,7 +54,6 @@ namespace EcouzTourism.Infrastructure.Respository
             }
             if (!string.IsNullOrEmpty(includeProperties))
             {
-                //Case Sensitive Villa,VillaNumber
                 foreach (var includeProp in includeProperties
                     .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
