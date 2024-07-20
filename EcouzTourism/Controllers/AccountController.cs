@@ -1,5 +1,6 @@
 ﻿using EcouzTourism.Application.Common.Interfaces;
 using EcouzTourism.Domain.Entities;
+using EcouzTourism.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,9 +24,17 @@ namespace EcouzTourism.Controllers
             _signInManager = signInManager;
         }
 
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl=null)
         {
-            return View();
+
+            returnUrl ??= Url.Content("~/");
+
+            LoginVM loginVM = new()
+            {
+                RedirectUrl = returnUrl
+            };
+
+            return View(loginVM);
         }
         public IActionResult Register()
         {
