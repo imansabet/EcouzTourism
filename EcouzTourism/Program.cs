@@ -1,4 +1,5 @@
 using EcouzTourism.Application.Common.Interfaces;
+using EcouzTourism.Domain.Entities;
 using EcouzTourism.Infrastructure.Data;
 using EcouzTourism.Infrastructure.Respository;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +12,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
