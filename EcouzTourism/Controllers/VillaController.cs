@@ -1,10 +1,12 @@
 ﻿using EcouzTourism.Application.Common.Interfaces;
 using EcouzTourism.Domain.Entities;
 using EcouzTourism.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcouzTourism.Controllers
 {
+    [Authorize]
     public class VillaController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

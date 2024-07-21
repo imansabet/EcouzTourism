@@ -1,13 +1,16 @@
 ﻿using EcouzTourism.Application.Common.Interfaces;
+using EcouzTourism.Application.Utility;
 using EcouzTourism.Domain.Entities;
 using EcouzTourism.Infrastructure.Data;
 using EcouzTourism.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcouzTourism.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
     public class AmenityController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

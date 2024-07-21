@@ -43,6 +43,10 @@ namespace EcouzTourism.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
         public IActionResult Register(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
