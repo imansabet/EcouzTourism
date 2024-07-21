@@ -113,5 +113,42 @@ namespace EcouzTourism.Controllers
 
             return View(registerVM);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginVM loginVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager
+                    .PasswordSignInAsync(loginVM.Email, loginVM.Password, loginVM.RememberMe, lockoutOnFailure: false);
+
+
+                if (result.Succeeded)
+                {
+                    var user = await _userManager.FindByEmailAsync(loginVM.Email);
+                    if (await _userManager.IsInRoleAsync(user, SD.Role_Admin))
+                    {
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+                    else
+                    {
+                        if (string.IsNullOrEmpty(loginVM.RedirectUrl))
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            return LocalRedirect(loginVM.RedirectUrl);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                }
+            }
+
+            return View(loginVM);
+        }
     }
 }
