@@ -1,49 +1,37 @@
 ﻿@model LoginVM
 
-<div class="container pt-5 ">
-    <div class="card shadow border bg-gradient ">
-        <h1 class="neon-text m-2 text-center ">
-            Login 
-        </h1>
-        <div class="card-body p-4 ">
-            <div class="row">
-                <div class="col-md-12">
-                    <section>
-                        <form method="post">
-                            <input asp-for="RedirectUrl" hidden />
-                            <div asp-validation-summary="ModelOnly" class="text-danger" ></div>
-                            <div class="form-floating  mb-3">
-                                <input asp-for="Email" class="form-control bg-white text-dark" aria-required="true" />
-                                <label asp-for="Email" class="form-label"></label>
-                                <span asp-validation-for="Email" class="text-danger"></span>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input asp-for="Password" class="form-control bg-white text-dark" aria-required="true" />
-                                <label asp-for="Password" class="form-label"></label>
-                                <span asp-validation-for="Password" class="text-danger"></span>
-                            </div>
-                            <div class="checkbox mb-3">
-                                <input class="form-check-input" asp-for="RememberMe" />
-
-                                <label class="form-label">
-                                    Remember Me
-                                </label>
-                            </div>
-                            <div class="align-content-center justify-content-center text-center">
-                                <button type="submit" class=" w-25 btn btn-lg btn-outline-success">Log in</button>
-                            </div>
-                            <div class="d-flex justify-content-between pt-2">
-                                <p>
-                                    <a asp-action="ForgotPassword">Forgot your password?</a>
-                                </p>
-                                <p>
-                                    <a asp-action="Register" asp-route-returnUrl="@Model.RedirectUrl">Register as a new user</a>
-                                </p>
-                            </div>
-                        </form>
-                    </section>
+<div class="container pt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border bg-gradient">
+                <h1 class="neon-text m-2 text-center">Login</h1>
+                <div class="card-body p-4">
+                    <form method="post" class="text-center">
+                        <input asp-for="RedirectUrl" hidden />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Email" class="form-control bg-white text-dark" aria-required="true" />
+                            <label asp-for="Email" class="form-label"></label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Password" class="form-control bg-white text-dark" aria-required="true" />
+                            <label asp-for="Password" class="form-label"></label>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" asp-for="RememberMe" />
+                            <label class="form-check-label" for="RememberMe">Remember Me</label>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-lg btn-outline-success w-50">Log in</button>
+                        </div>
+                        <div class="d-flex justify-content-between pt-2">
+                            <p><a asp-action="ForgotPassword">Forgot your password?</a></p>
+                            <p><a asp-action="Register" asp-route-returnUrl="@Model.RedirectUrl">Register as a new user</a></p>
+                        </div>
+                    </form>
                 </div>
-
             </div>
         </div>
     </div>
