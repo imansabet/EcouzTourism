@@ -43,6 +43,7 @@ namespace EcouzTourism.Controllers
         [HttpPost]
         public IActionResult GetVillasByDate(int nights, DateOnly checkInDate)
         {
+            //Thread.Sleep(2000); //for spinner 
             var VillaList = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenity");
             foreach (var villa in VillaList)
             {
