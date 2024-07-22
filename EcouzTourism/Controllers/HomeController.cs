@@ -40,6 +40,27 @@ namespace EcouzTourism.Controllers
             }
             return View(homeVM);
         }
+        [HttpPost]
+        public IActionResult GetVillasByDate(int nights, DateOnly checkInDate)
+        {
+            var VillaList = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenity");
+            foreach (var villa in VillaList)
+            {
+                if (villa.Id % 2 == 0)
+                {
+                    villa.IsAvailable = false;
+                }
+            }
+
+            HomeVM homeVM = new()
+            {
+                CheckInDate = checkInDate,
+                VillaList = VillaList,
+                Nights = nights
+            };
+
+            return PartialView("_VillaList", homeVM);
+        }
 
         public IActionResult Privacy()
         {
