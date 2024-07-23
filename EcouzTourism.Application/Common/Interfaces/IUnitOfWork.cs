@@ -12,7 +12,7 @@ namespace EcouzTourism.Application.Common.Interfaces
         IVillaNumberRepository VillaNumber { get; }
         IAmenityRepository Amenity { get; }
         IBookingRepository Booking { get; }
-        IApplicationUserRepository ApplicationUser { get; }
+        IApplicationUserRepository User { get; }
         void Save();
     }
 }
