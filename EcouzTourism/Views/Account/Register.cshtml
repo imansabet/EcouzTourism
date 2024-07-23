@@ -1,57 +1,125 @@
 ﻿@model RegisterVM
+
 <div class="container pt-5">
-    <div class="card shadow border bg-gradient ">
-        <h1 class="neon-text m-2 text-center ">
-            Register
-        </h1>
+    <div class="card shadow border bg-gradient animate-card">
+        <h1 class="neon-text m-2 text-center animate-heading">Register</h1>
         <div class="card-body p-4">
             <div class="row pt-3">
                 <div class="col-md-12">
                     <form class="row" method="post">
                         <input asp-for="RedirectUrl" hidden />
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-floating mb-3 col-md-12">
+                        <div asp-validation-summary="ModelOnly" class="text-danger animate-validation"></div>
+                        <div class="form-floating mb-3 col-md-12 animate-email">
                             <input asp-for="Email" class="form-control" aria-required="true" />
                             <label asp-for="Email" class="ms-2 text-muted"></label>
-                            <span asp-validation-for="Email" class="text-danger"/>
+                            <span asp-validation-for="Email" class="text-danger" />
                         </div>
-                        <div class="form-floating mb-3 col-md-6">
+                        <div class="form-floating mb-3 col-md-6 animate-name">
                             <input asp-for="Name" class="form-control" />
                             <label asp-for="Name" class="ms-2 text-muted"></label>
                             <span asp-validation-for="Name" class="text-danger" />
                         </div>
-                        <div class="form-floating mb-3 col-md-6">
+                        <div class="form-floating mb-3 col-md-6 animate-phone">
                             <input asp-for="PhoneNumber" class="form-control" />
                             <label asp-for="PhoneNumber" class="ms-2 text-muted"></label>
                             <span asp-validation-for="PhoneNumber" class="text-danger" />
                         </div>
-                        <div class="form-floating mb-3 col-md-6">
+                        <div class="form-floating mb-3 col-md-6 animate-password">
                             <input asp-for="Password" class="form-control" />
                             <label asp-for="Password" class="ms-2 text-muted"></label>
                             <span asp-validation-for="Password" class="text-danger" />
                         </div>
-                        <div class="form-floating mb-3 col-md-6">
+                        <div class="form-floating mb-3 col-md-6 animate-confirm-password">
                             <input asp-for="ConfirmPassword" class="form-control" />
                             <label asp-for="ConfirmPassword" class="ms-2 text-muted">Confirm Password</label>
                             <span asp-validation-for="ConfirmPassword" class="text-danger" />
                         </div>
-
-                        <div class="form-floating mb-3 col-md-6">
+                        <div class="form-floating mb-3 col-md-6 animate-role">
                             <select asp-for="Role" asp-items="@Model.RoleList" class="form-select">
                                 <option disabled selected>-Select Role-</option>
                             </select>
                         </div>
-                        <div class="col-12 align-content-center justify-content-center text-center">
-                            <button type="submit" class=" w-25 btn btn-lg btn-outline-success">Register</button>
+                        <div class="col-12 align-content-center justify-content-center text-center animate-button">
+                            <button type="submit" class="w-25 btn btn-lg btn-outline-success">Register</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+<style>
+    @@keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @@keyframes slideInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-card {
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .animate-heading {
+        animation: slideInUp 1s ease-in-out;
+        animation-delay: 0.1s;
+    }
+
+    .animate-validation {
+        animation: slideInUp 1s ease-in-out;
+        animation-delay: 0.2s;
+    }
+
+    .animate-email {
+        animation: slideInUp 1s ease-in-out;
+        animation-delay: 0.3s;
+    }
+
+    .animate-name {
+        animation: slideInUp 1s ease-in-out;
+        animation-delay: 0.4s;
+    }
+
+    .animate-phone {
+        animation: slideInUp 1s ease-in-out;
+        animation-delay: 0.5s;
+    }
+
+    .animate-password {
+        animation: slideInUp 1s ease-in-out;
+        animation-delay: 0.6s;
+    }
+
+    .animate-confirm-password {
+        animation: slideInUp 1s ease-in-out;
+        animation-delay: 0.7s;
+    }
+
+    .animate-role {
+        animation: slideInUp 1s ease-in-out;
+        animation-delay: 0.8s;
+    }
+
+    .animate-button {
+        animation: slideInUp 1s ease-in-out;
+        animation-delay: 0.9s;
+    }
+</style>
