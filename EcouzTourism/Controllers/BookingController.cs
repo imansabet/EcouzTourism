@@ -27,5 +27,4 @@ namespace EcouzTourism.Controllers
             return View(booking);
         }
     }
-    }
 }
