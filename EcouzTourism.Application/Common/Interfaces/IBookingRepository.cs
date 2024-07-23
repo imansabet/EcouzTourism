@@ -11,6 +11,9 @@ namespace EcouzTourism.Application.Common.Interfaces
     public interface IBookingRepository : IRepository<Booking>
     {
         void Update(Booking entity);
+        void UpdateStatus(int bookingId,string bookingStatus);
+        void UpdateStripePaymentStatus(int bookingId,string sessionId,string paymentIntentId);
+
 
     }
 }

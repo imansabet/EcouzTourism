@@ -1,4 +1,5 @@
 ﻿using EcouzTourism.Application.Common.Interfaces;
+using EcouzTourism.Application.Utility;
 using EcouzTourism.Domain.Entities;
 using EcouzTourism.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,42 @@ namespace EcouzTourism.Infrastructure.Respository
         public void Update(Booking entity)
         {
             _db.Bookings.Update(entity);
+        }
+
+        public void UpdateStatus(int bookingId, string bookingStatus)
+        {
+            var bookingfromDb = _db.Bookings.FirstOrDefault(m => m.Id == bookingId);
+            if (bookingfromDb != null)
+            {
+                bookingfromDb.Status = bookingStatus;
+                if(bookingStatus == SD.StatusCheckedIn)
+                {
+                    bookingfromDb.ActualCheckInDate = DateTime.Now;
+                }
+                if(bookingStatus == SD.StatusCompleted)
+                {
+                    bookingfromDb.ActualCheckOutDate = DateTime.Now;
+                }
+
+            }
+        }
+
+        public void UpdateStripePaymentStatus(int bookingId, string sessionId, string paymentIntentId)
+        {
+            var bookingfromDb = _db.Bookings.FirstOrDefault(m => m.Id == bookingId);
+            if (bookingfromDb != null)
+            {
+                if (!string.IsNullOrEmpty(sessionId))
+                {
+                    bookingfromDb.StripeSessionId = sessionId;
+                }
+                if (!string.IsNullOrEmpty(paymentIntentId))
+                {
+                    bookingfromDb.StripePaymentIntentId = paymentIntentId;
+                    bookingfromDb.PaymentDate = DateTime.Now;
+                    bookingfromDb.IsPaymentSuccessful = true;
+                }
+            }
         }
     }
 }
