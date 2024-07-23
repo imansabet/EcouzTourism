@@ -18,10 +18,13 @@ namespace EcouzTourism.Infrastructure.Respository
         public IAmenityRepository Amenity { get; private set; }
         public IBookingRepository Booking { get; private set; }
 
+        public IApplicationUserRepository ApplicationUser { get; private set; }
+
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
             Villa = new VillaRepository(_db);
+            ApplicationUser = new ApplicationUserRepository(_db);
             VillaNumber = new VillaNumberRepository(_db);
             Amenity = new AmenityRepository(_db);
             Booking = new BookingRepository(_db);
