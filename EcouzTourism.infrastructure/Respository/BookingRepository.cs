@@ -45,7 +45,7 @@ namespace EcouzTourism.Infrastructure.Respository
             }
         }
 
-        public void UpdateStripePaymentStatus(int bookingId, string sessionId, string paymentIntentId)
+        public void UpdateStripePaymentID(int bookingId, string sessionId, string paymentIntentId)
         {
             var bookingfromDb = _db.Bookings.FirstOrDefault(m => m.Id == bookingId);
             if (bookingfromDb != null)

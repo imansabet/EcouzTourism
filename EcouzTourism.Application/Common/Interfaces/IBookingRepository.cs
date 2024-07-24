@@ -12,7 +12,7 @@ namespace EcouzTourism.Application.Common.Interfaces
     {
         void Update(Booking entity);
         void UpdateStatus(int bookingId,string bookingStatus);
-        void UpdateStripePaymentStatus(int bookingId,string sessionId,string paymentIntentId);
+        void UpdateStripePaymentID(int bookingId,string sessionId,string paymentIntentId);
 
 
     }

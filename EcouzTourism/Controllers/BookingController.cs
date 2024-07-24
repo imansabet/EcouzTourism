@@ -65,8 +65,8 @@ namespace EcouzTourism.Controllers
             {
                 LineItems = new List<SessionLineItemOptions>(),
                 Mode = "payment",
-                SuccessUrl = domain + $"/booking/BookingConfirmation?bookingId={booking.Id}",
-                CancelUrl = domain + $"/booking/FinalizeBooking?villaId={booking.VillaId}&checkInDate={booking.CheckInDate}&nights={booking.Nights}",
+                SuccessUrl = domain + $"booking/BookingConfirmation?bookingId={booking.Id}",
+                CancelUrl = domain + $"booking/FinalizeBooking?villaId={booking.VillaId}&checkInDate={booking.CheckInDate}&nights={booking.Nights}",
             };
 
 
@@ -89,6 +89,8 @@ namespace EcouzTourism.Controllers
             var service = new SessionService();
             Session session = service.Create(options);
 
+            _unitOfWork.Booking.UpdateStripePaymentID(booking.Id, session.Id, session.PaymentIntentId);
+            _unitOfWork.Save();
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);
 
