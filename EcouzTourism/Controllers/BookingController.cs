@@ -100,7 +100,23 @@ namespace EcouzTourism.Controllers
         [Authorize]
         public IActionResult BookingConfirmation(int bookingId)
         {
-            
+            Booking bookingFromdb = _unitOfWork.Booking.Get(u => u.Id == bookingId,
+                includeProperties:"User,Villa");
+
+            if(bookingFromdb.Status == SD.StatusPending)
+            {
+                //this is a pending order , we need to confirm if payment was successful    
+                var service = new SessionService();
+                Session session = service.Get(bookingFromdb.StripeSessionId);
+                if(session.PaymentStatus == "paid")
+                {
+                    _unitOfWork.Booking.UpdateStatus(bookingFromdb.Id, SD.StatusApproved);
+                    _unitOfWork.Booking.UpdateStripePaymentID(bookingFromdb.Id, session.Id,session.PaymentIntentId);
+                    _unitOfWork.Save();
+                }
+
+
+            }
 
             return View(bookingId);
         }
