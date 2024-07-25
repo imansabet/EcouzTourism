@@ -21,6 +21,7 @@ namespace EcouzTourism.Controllers
             _unitOfWork = unitOfWork;
             _userManager = userManager;
         }
+        [Authorize]
         public IActionResult Index()
         {
             return View();
