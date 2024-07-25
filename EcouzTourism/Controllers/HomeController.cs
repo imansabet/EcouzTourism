@@ -1,4 +1,5 @@
 using EcouzTourism.Application.Common.Interfaces;
+using EcouzTourism.Application.Utility;
 using EcouzTourism.Models;
 using EcouzTourism.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -31,13 +32,16 @@ namespace EcouzTourism.Controllers
         public IActionResult GetVillasByDate(int nights, DateOnly checkInDate)
         {
             //Thread.Sleep(2000); //for spinner 
-            var VillaList = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenity");
+            var VillaList = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenity").ToList();
+            var villaNumbersList = _unitOfWork.VillaNumber.GetAll().ToList();
+            var bookedVillas = _unitOfWork.Booking.GetAll(u => u.Status == SD.StatusApproved ||
+            u.Status == SD.StatusCheckedIn).ToList();
             foreach (var villa in VillaList)
             {
-                if (villa.Id % 2 == 0)
-                {
-                    villa.IsAvailable = false;
-                }
+                int roomAvailable = SD.VillaRoomsAvailable_Count
+                    (villa.Id, villaNumbersList, checkInDate, nights, bookedVillas);
+
+                villa.IsAvailable = roomAvailable > 0 ? true : false;
             }
 
             HomeVM homeVM = new()
