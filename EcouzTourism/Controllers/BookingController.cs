@@ -116,7 +116,7 @@ namespace EcouzTourism.Controllers
                 Session session = service.Get(bookingFromdb.StripeSessionId);
                 if(session.PaymentStatus == "paid")
                 {
-                    _unitOfWork.Booking.UpdateStatus(bookingFromdb.Id, SD.StatusApproved);
+                    _unitOfWork.Booking.UpdateStatus(bookingFromdb.Id, SD.StatusApproved,0);
                     _unitOfWork.Booking.UpdateStripePaymentID(bookingFromdb.Id, session.Id,session.PaymentIntentId);
                     _unitOfWork.Save();
                 }

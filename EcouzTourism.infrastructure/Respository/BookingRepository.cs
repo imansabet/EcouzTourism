@@ -27,7 +27,7 @@ namespace EcouzTourism.Infrastructure.Respository
             _db.Bookings.Update(entity);
         }
 
-        public void UpdateStatus(int bookingId, string bookingStatus)
+        public void UpdateStatus(int bookingId, string bookingStatus,int villaNumber=0) 
         {
             var bookingfromDb = _db.Bookings.FirstOrDefault(m => m.Id == bookingId);
             if (bookingfromDb != null)
@@ -35,6 +35,7 @@ namespace EcouzTourism.Infrastructure.Respository
                 bookingfromDb.Status = bookingStatus;
                 if(bookingStatus == SD.StatusCheckedIn)
                 {
+                    bookingfromDb.VillaNumber = villaNumber;
                     bookingfromDb.ActualCheckInDate = DateTime.Now;
                 }
                 if(bookingStatus == SD.StatusCompleted)
