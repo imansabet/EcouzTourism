@@ -134,19 +134,29 @@ namespace EcouzTourism.Controllers
         public IActionResult GetAll(string status)
         {
             IEnumerable<Booking> objBookings;
-            string userId = "";
-            if (string.IsNullOrEmpty(status))
-            {
-                status = "";
-            }
+            //string userId = "";
+            //if (string.IsNullOrEmpty(status))
+            //{
+            //    status = "";
+            //}
 
-            if (!User.IsInRole(SD.Role_Admin))
+            if (User.IsInRole(SD.Role_Admin))
+            {
+                objBookings = _unitOfWork.Booking.GetAll(includeProperties: "User,Villa");
+
+
+            }
+            else
             {
                 var claimsIdentity = (ClaimsIdentity)User.Identity;
-                userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                objBookings = _unitOfWork.Booking.GetAll(u => u.UserId == userId, includeProperties: "User,Villa");
+            }
+            if (!string.IsNullOrEmpty(status))
+            {
+                objBookings = objBookings.Where(u => u.Status.ToLower().Equals(status.ToLower()));
             }
 
-            objBookings = _unitOfWork.Booking.GetAll(u => u.UserId == userId, includeProperties: "User,Villa");
 
             return Json(new { data = objBookings });
         }
