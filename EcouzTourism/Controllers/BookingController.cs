@@ -21,6 +21,11 @@ namespace EcouzTourism.Controllers
             _unitOfWork = unitOfWork;
             _userManager = userManager;
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         [Authorize] 
         public IActionResult FinalizeBooking(int villaId, DateOnly checkInDate, int nights)
         {
@@ -120,5 +125,31 @@ namespace EcouzTourism.Controllers
 
             return View(bookingId);
         }
+
+
+        #region API Calls
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAll(string status)
+        {
+            IEnumerable<Booking> objBookings;
+            string userId = "";
+            if (string.IsNullOrEmpty(status))
+            {
+                status = "";
+            }
+
+            if (!User.IsInRole(SD.Role_Admin))
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            }
+
+            objBookings = _unitOfWork.Booking.GetAll(u => u.UserId == userId, includeProperties: "User,Villa");
+
+            return Json(new { data = objBookings });
+        }
+
+        #endregion
     }
 }
