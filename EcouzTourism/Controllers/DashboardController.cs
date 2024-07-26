@@ -2,7 +2,7 @@
 
 namespace EcouzTourism.Controllers
 {
-    public class DashbordController : Controller
+    public class DashboardController : Controller
     {
         public IActionResult Index()
         {
