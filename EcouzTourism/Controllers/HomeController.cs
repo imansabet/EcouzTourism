@@ -1,29 +1,33 @@
 using EcouzTourism.Application.Common.Interfaces;
+using EcouzTourism.Application.Services.Interface;
 using EcouzTourism.Application.Utility;
 using EcouzTourism.Models;
 using EcouzTourism.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace EcouzTourism.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(IUnitOfWork unitOfWork)
+        private readonly IVillaService _villaService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public HomeController(IVillaService villaService, IWebHostEnvironment webHostEnvironment)
         {
-            _unitOfWork = unitOfWork;
+            _villaService = villaService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
         {
             HomeVM homeVM = new()
             {
-                VillaList = _unitOfWork.Villa.GetAll(includeProperties:"VillaAmenity"),
+                VillaList = _villaService.GetAllVillas(),
                 Nights = 1,
                 CheckInDate = DateOnly.FromDateTime(DateTime.Now),
-
             };
             return View(homeVM);
         }
@@ -31,28 +35,18 @@ namespace EcouzTourism.Controllers
         [HttpPost]
         public IActionResult GetVillasByDate(int nights, DateOnly checkInDate)
         {
-            //Thread.Sleep(2000); //for spinner 
-            var VillaList = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenity").ToList();
-            var villaNumbersList = _unitOfWork.VillaNumber.GetAll().ToList();
-            var bookedVillas = _unitOfWork.Booking.GetAll(u => u.Status == SD.StatusApproved ||
-            u.Status == SD.StatusCheckedIn).ToList();
-            foreach (var villa in VillaList)
-            {
-                int roomAvailable = SD.VillaRoomsAvailable_Count
-                    (villa.Id, villaNumbersList, checkInDate, nights, bookedVillas);
-
-                villa.IsAvailable = roomAvailable > 0 ? true : false;
-            }
 
             HomeVM homeVM = new()
             {
                 CheckInDate = checkInDate,
-                VillaList = VillaList,
+                VillaList = _villaService.GetVillasAvailabilityByDate(nights, checkInDate),
                 Nights = nights
             };
 
             return PartialView("_VillaList", homeVM);
         }
+
+      
 
         public IActionResult Privacy()
         {

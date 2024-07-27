@@ -1,8 +1,10 @@
 using EcouzTourism.Application.Common.Interfaces;
+using EcouzTourism.Application.Contract;
 using EcouzTourism.Application.Services.Implementation;
 using EcouzTourism.Application.Services.Interface;
 using EcouzTourism.Domain.Entities;
 using EcouzTourism.Infrastructure.Data;
+using EcouzTourism.Infrastructure.Emails;
 using EcouzTourism.Infrastructure.Respository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +37,12 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 
+builder.Services.AddScoped<IVillaService, VillaService>();
+builder.Services.AddScoped<IVillaNumberService, VillaNumberService>();
+builder.Services.AddScoped<IAmenityService, AmenityService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 var app = builder.Build();
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();

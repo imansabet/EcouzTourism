@@ -15,11 +15,10 @@ namespace EcouzTourism.Infrastructure.Respository
     {
         private readonly ApplicationDbContext _db;
         internal DbSet<T> dbSet;
-
         public Repository(ApplicationDbContext db)
         {
             _db = db;
-            dbSet = _db.Set<T>(); 
+            dbSet = _db.Set<T>();
         }
         public void Add(T entity)
         {
@@ -52,7 +51,7 @@ namespace EcouzTourism.Infrastructure.Respository
                 foreach (var includeProp in includeProperties
                     .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    query = query.Include(includeProp);
+                    query = query.Include(includeProp.Trim());
                 }
             }
             return query.FirstOrDefault();
@@ -78,7 +77,7 @@ namespace EcouzTourism.Infrastructure.Respository
                 foreach (var includeProp in includeProperties
                     .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    query = query.Include(includeProp);
+                    query = query.Include(includeProp.Trim());
                 }
             }
             return query.ToList();

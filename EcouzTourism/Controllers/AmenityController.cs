@@ -1,4 +1,5 @@
 ﻿using EcouzTourism.Application.Common.Interfaces;
+using EcouzTourism.Application.Services.Interface;
 using EcouzTourism.Application.Utility;
 using EcouzTourism.Domain.Entities;
 using EcouzTourism.Infrastructure.Data;
@@ -13,62 +14,63 @@ namespace EcouzTourism.Controllers
     [Authorize(Roles = SD.Role_Admin)]
     public class AmenityController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IAmenityService _amenityService;
+        private readonly IVillaService _villaService;
 
-        public AmenityController(IUnitOfWork unitOfWork)
+        public AmenityController(IAmenityService amenityService, IVillaService villaService)
         {
-            _unitOfWork = unitOfWork;
+            _amenityService = amenityService;
+            _villaService = villaService;
         }
+
         public IActionResult Index()
         {
-            var Amenitys = _unitOfWork.Amenity.GetAll(includeProperties: "Villa");
-            return View(Amenitys);
+            var amenities = _amenityService.GetAllAmenities();
+            return View(amenities);
         }
+
         public IActionResult Create()
         {
-            AmenityVM AmenityVM = new()
+            AmenityVM amenityVM = new()
             {
-                VillaList = _unitOfWork.Villa.GetAll().Select(u => new SelectListItem
+                VillaList = _villaService.GetAllVillas().Select(u => new SelectListItem
                 {
                     Text = u.Name,
                     Value = u.Id.ToString()
                 })
             };
-            return View(AmenityVM);
+            return View(amenityVM);
         }
-       
 
         [HttpPost]
         public IActionResult Create(AmenityVM obj)
         {
 
-            
-            if (ModelState.IsValid )
+            if (ModelState.IsValid)
             {
-
-                _unitOfWork.Amenity.Add(obj.Amenity);
-                _unitOfWork.Save();
-                TempData["success"] = "The amenity Has been created successfully";
+                _amenityService.CreateAmenity(obj.Amenity);
+                TempData["success"] = "The amenity has been created successfully.";
                 return RedirectToAction(nameof(Index));
             }
-          
-            obj.VillaList = _unitOfWork.Villa.GetAll().Select(u => new SelectListItem
+
+            obj.VillaList = _villaService.GetAllVillas().Select(u => new SelectListItem
             {
                 Text = u.Name,
                 Value = u.Id.ToString()
             });
-            return View(obj); 
+            return View(obj);
         }
+
         public IActionResult Update(int amenityId)
         {
             AmenityVM amenityVM = new()
             {
-                VillaList = _unitOfWork.Villa.GetAll().Select(u => new SelectListItem
+                VillaList = _villaService.GetAllVillas().Select(u => new SelectListItem
                 {
                     Text = u.Name,
                     Value = u.Id.ToString()
                 }),
-                Amenity = _unitOfWork.Amenity.Get(u => u.Id == amenityId)
+                Amenity = _amenityService.GetAmenityById(amenityId)
             };
             if (amenityVM.Amenity == null)
             {
@@ -84,31 +86,31 @@ namespace EcouzTourism.Controllers
 
             if (ModelState.IsValid)
             {
-
-                _unitOfWork.Amenity.Update(amenityVM.Amenity);
-                _unitOfWork.Save();
-                TempData["success"] = "The amenity Has been updated successfully";
+                _amenityService.UpdateAmenity(amenityVM.Amenity);
+                TempData["success"] = "The amenity has been updated successfully.";
                 return RedirectToAction(nameof(Index));
             }
 
-            amenityVM.VillaList = _unitOfWork.Villa.GetAll().Select(u => new SelectListItem
+            amenityVM.VillaList = _villaService.GetAllVillas().Select(u => new SelectListItem
             {
                 Text = u.Name,
                 Value = u.Id.ToString()
             });
-            
             return View(amenityVM);
         }
+
+
+
         public IActionResult Delete(int amenityId)
         {
             AmenityVM amenityVM = new()
             {
-                VillaList = _unitOfWork.Villa.GetAll().Select(u => new SelectListItem
+                VillaList = _villaService.GetAllVillas().Select(u => new SelectListItem
                 {
                     Text = u.Name,
                     Value = u.Id.ToString()
                 }),
-                Amenity = _unitOfWork.Amenity.Get(u => u.Id == amenityId)
+                Amenity = _amenityService.GetAmenityById(amenityId)
             };
             if (amenityVM.Amenity == null)
             {
@@ -117,23 +119,20 @@ namespace EcouzTourism.Controllers
             return View(amenityVM);
         }
 
+
+
         [HttpPost]
         public IActionResult Delete(AmenityVM amenityVM)
         {
-            Amenity? objFromDb = _unitOfWork.Amenity.Get
-                (u => u.Id == amenityVM.Amenity.Id);
-
-            if(objFromDb is not null)
+            Amenity? objFromDb = _amenityService.GetAmenityById(amenityVM.Amenity.Id);
+            if (objFromDb is not null)
             {
-                _unitOfWork.Amenity.Remove(objFromDb);
-                _unitOfWork.Save();
-                TempData["success"] = "the amenity has been deleted successfully";
+                _amenityService.DeleteAmenity(objFromDb.Id);
+                TempData["success"] = "The amenity has been deleted successfully.";
                 return RedirectToAction(nameof(Index));
-
             }
-            TempData["error"] = "The amenity could not be deleted";
+            TempData["error"] = "The amenity could not be deleted.";
             return View();
-            
         }
     }
 }
