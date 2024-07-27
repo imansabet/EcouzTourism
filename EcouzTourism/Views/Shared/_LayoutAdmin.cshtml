@@ -10,10 +10,39 @@
     <link rel="stylesheet" href="~/EcouzTourism.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/spinner.css" />
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/css/apexcharts.css" />
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <style>
+        .nav-link {
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+            .nav-link::before {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                bottom: 0;
+                left: 0;
+                background-color: #66ff33; /* می‌توانید رنگ را به دلخواه تغییر دهید */
+                visibility: hidden;
+                transform: scaleX(0);
+                transition: all 0.3s ease-in-out;
+            }
+
+            .nav-link:hover::before {
+                visibility: visible;
+                transform: scaleX(1);
+            }
+
+            .nav-link:hover {
+                color: #66ff33; /* رنگ متن هنگام هاور */
+            }
         .neon-text {
             color: #fff;
             text-shadow: 0 0 0.5px #fff, 0 0 0.5px #fff, 0 0 0.5px #fff, 0 0 8px #fff;
@@ -101,9 +130,9 @@
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
                 <div class="position-static pt-3">
-                    <ul class="navbar-nav neon-text">
+                    <ul class="navbar-nav ">
                         <li>
-                            <div class="text-muted small fw-bold text-uppercase px-3">
+                            <div class="text-muted small fw-bold text-uppercase px-3 neon-text">
                                 Menu
                             </div>
                         </li>
@@ -114,7 +143,7 @@
                             </a>
                         </li>
                         <li>
-                            <div class="text-muted small fw-bold text-uppercase px-3 mt-2">
+                            <div class="text-muted small fw-bold text-uppercase px-3 mt-2 neon-text">
                                 Content Management
                             </div>
                         </li>
@@ -167,6 +196,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+    <script src="~/js/apexcharts.js"></script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
