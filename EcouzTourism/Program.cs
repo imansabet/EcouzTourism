@@ -1,4 +1,6 @@
 using EcouzTourism.Application.Common.Interfaces;
+using EcouzTourism.Application.Services.Implementation;
+using EcouzTourism.Application.Services.Interface;
 using EcouzTourism.Domain.Entities;
 using EcouzTourism.Infrastructure.Data;
 using EcouzTourism.Infrastructure.Respository;
@@ -30,7 +32,7 @@ builder.Services.Configure<IdentityOptions>(option =>
 
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 
 
 var app = builder.Build();

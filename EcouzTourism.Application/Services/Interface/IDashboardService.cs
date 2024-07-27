@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EcouzTourism.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,10 @@ namespace EcouzTourism.Application.Services.Interface
 {
     public interface IDashboardService
     {
-        Task<RadialBarChartDto> GetTotalBookingRadialChartData();
-        Task<RadialBarChartDto> GetRegisteredUserChartData();
-        Task<RadialBarChartDto> GetRevenueChartData();
-        Task<PieChartDto> GetBookingPieChartData();
-        Task<LineChartDto> GetMemberAndBookingLineChartData();
+        Task<RadialBarChartDTO> GetTotalBookingRadialChartData();
+        Task<RadialBarChartDTO> GetRegisteredUserChartData();
+        Task<RadialBarChartDTO> GetRevenueChartData();
+        Task<PieChartDTO> GetBookingPieChartData();
+        Task<LineChartDTO> GetMemberAndBookingLineChartData();
     }
 }
