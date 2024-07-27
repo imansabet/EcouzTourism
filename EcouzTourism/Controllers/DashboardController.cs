@@ -29,7 +29,7 @@ namespace EcouzTourism.Controllers
 
             var countByPreviousMonth = totalBookings.Count(u => u.BookingDate >= previousMonthStartDate &&
             u.BookingDate <= currentMonthStartDate);
-            RadialBarChartVM radialBarChartVM = new();
+            RadialBarChartDTO radialBarChartVM = new();
 
 
             int increaseDecreaseRatio = 100;
@@ -84,7 +84,7 @@ namespace EcouzTourism.Controllers
             int bookingsByNewCustomer = customerWithOneBooking.Count();
             int bookingsByReturningCustomer = totalBookings.Count() - bookingsByNewCustomer;
 
-            PieChartVM pieChartVM = new()
+            PieChartDTO pieChartVM = new()
             {
                 Labels = new string[] { "New Customer Bookings", "Returning Customer Bookings" },
                 Series = new decimal[] { bookingsByNewCustomer, bookingsByReturningCustomer }
@@ -148,7 +148,7 @@ namespace EcouzTourism.Controllers
                 },
             };
 
-            LineChartVM lineChartVM = new()
+            LineChartDTO lineChartVM = new()
             {
                 Categories = categories,
                 Series = chartDataList
@@ -159,9 +159,9 @@ namespace EcouzTourism.Controllers
             return Json(lineChartVM);        
         }
 
-        private static RadialBarChartVM GetRadialCartDataModel(int totalCount, double currentMonthCount, double prevMonthCount)
+        private static RadialBarChartDTO GetRadialCartDataModel(int totalCount, double currentMonthCount, double prevMonthCount)
         {
-            RadialBarChartVM radialBarChartVM = new();
+            RadialBarChartDTO radialBarChartVM = new();
 
 
             int increaseDecreaseRatio = 100;
